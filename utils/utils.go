@@ -70,3 +70,71 @@ func ReadCommandsFromInput (inputfile string) (commands []Command) {
 
 }
 
+func InputToSliceOfSlice (inputfile string) (result [][]int) {
+	file, err := os.Open(inputfile)
+
+	if err != nil {
+		log.Fatalf("failed to open input")
+	}
+
+	scanner := bufio.NewScanner(file)
+
+	for scanner.Scan() {
+		slice_text := strings.Split(scanner.Text(), "")
+
+		nums := make([]int, len(slice_text))
+
+		for i := range slice_text {
+			nums[i], _ = strconv.Atoi(slice_text[i])
+		}
+
+		result = append(result, nums)
+	}
+	file.Close()
+
+	return
+
+}
+
+func MostFrequent(array []int) int {
+	m := map[int]int{}
+	var maxCount int
+	var freq int
+	for _, a := range array {
+		m[a]++
+		if m[a] > maxCount {
+			maxCount = m[a]
+			freq = a
+		}
+	}
+
+	return freq
+}
+
+func BinaryStringToInt (input string) int64 {
+	output, err := strconv.ParseInt(input, 2, 64)
+
+	if err != nil {
+		log.Fatalf("error converting string to int")
+	}
+
+	return output
+}
+
+func InputFile (inputfile string) (result []string) {
+	file, err := os.Open(inputfile)
+
+	if err != nil {
+		log.Fatalf("failed to open input")
+	}
+
+	scanner := bufio.NewScanner(file)
+
+	for scanner.Scan() {
+		result = append(result, scanner.Text())
+	}
+	file.Close()
+
+	return
+
+}
